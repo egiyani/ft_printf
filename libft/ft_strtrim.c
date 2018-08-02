@@ -3,58 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chadams <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: egiyani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/03 14:51:47 by chadams           #+#    #+#             */
-/*   Updated: 2018/06/06 11:59:51 by chadams          ###   ########.fr       */
+/*   Created: 2018/05/31 11:57:07 by egiyani           #+#    #+#             */
+/*   Updated: 2018/06/01 09:19:10 by egiyani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-static int	start_count(char const *s)
+char	*ft_strtrim(char const *s)
 {
-	int	start;
-
-	start = 0;
-	while (ft_isspace(s[start]))
-		++start;
-	return (start);
-}
-
-static int	end_count(char const *s)
-{
-	int	len;
-
-	len = ft_strlen(s) - 1;
-	while (ft_isspace(s[len]))
-		--len;
-	return (len);
-}
-
-char		*ft_strtrim(char const *s)
-{
-	char	*new_str;
+	int		i;
 	int		len;
-	int		start;
-	int		index;
+	char	*str;
 
-	if (!s)
+	if (s == NULL)
 		return (NULL);
-	index = 0;
-	len = end_count(s);
-	start = start_count(s);
-	if (start > len)
-	{
-		new_str = (char *)malloc(sizeof(char) * 1);
-		bzero(new_str, 1);
-		return (new_str);
-	}
-	new_str = (char *)malloc(sizeof(char) * (len - start) + 2);
-	if (new_str == NULL)
+	len = ft_strlen(s);
+	while (s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n')
+		len--;
+	i = -1;
+	while (s[++i] == ' ' || s[i] == '\t' || s[i] == '\n')
+		len--;
+	if (len <= 0)
+		len = 0;
+	str = (char*)malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
 		return (NULL);
-	bzero(new_str, (len - start) + 2);
-	while (start <= len)
-		new_str[index++] = s[start++];
-	return (new_str);
+	s += i;
+	i = -1;
+	while (++i < len)
+		str[i] = *s++;
+	str[i] = '\0';
+	return (str);
 }

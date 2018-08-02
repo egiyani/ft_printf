@@ -3,38 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chadams <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: egiyani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/24 12:07:09 by chadams           #+#    #+#             */
-/*   Updated: 2018/06/04 18:17:31 by chadams          ###   ########.fr       */
+/*   Created: 2018/05/22 09:31:21 by egiyani           #+#    #+#             */
+/*   Updated: 2018/05/23 08:27:28 by egiyani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *str, int c)
 {
-	int index;
+	int i;
+	int j;
 
-	index = ft_strlen(s);
-	while (index >= 0)
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		if (s[index] == (unsigned char)c)
-		{
-			break ;
-		}
-		--index;
+		if (str[i] == c)
+			j = i;
+		i++;
 	}
-	if (index == 0)
-		return ((char *)s);
-	while ((*s != '\0') && (index >= 0))
-	{
-		++s;
-		--index;
-		if (index == 0)
-		{
-			return ((char *)s);
-		}
-	}
+	if (str[i] == '\0' && c == 0)
+		return ((char *)str + i);
+	else if (j > 0 || (j == 0 && str[j] == c))
+		return ((char *)str + j);
 	return (NULL);
 }

@@ -1,61 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_strslpit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chadams <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: egiyani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/04 14:22:27 by chadams           #+#    #+#             */
-/*   Updated: 2018/06/04 17:37:36 by chadams          ###   ########.fr       */
+/*   Created: 2018/06/01 15:22:27 by egiyani           #+#    #+#             */
+/*   Updated: 2018/06/02 09:57:28 by egiyani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-static int	get_nbwords(char const *s, char c)
+static int	nstrings(char const *str, char c)
 {
-	int	nb_words;
-	int	i;
+	int		i;
+	int		ptr;
 
 	i = 0;
-	nb_words = 0;
-	while (s && *(s + i))
+	ptr = 0;
+	while (str[i])
 	{
-		while (*(s + i) && *(s + i) == c)
-			++i;
-		if (*(s + i))
-			nb_words++;
-		while (*(s + i) && *(s + i) != c)
-			++i;
+		if (str[i] == c)
+			;
+		else if (!i || str[i - 1] == c)
+			ptr++;
+		i++;
 	}
-	return (nb_words);
+	return (ptr);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	size_t	start;
-	size_t	end;
-	char	**ptr;
 	int		i;
+	size_t	j;
+	char	**ret;
+	int		start;
 
-	start = 0;
-	end = 0;
 	i = 0;
-	ptr = NULL;
-	if (!s)
-		return (ptr);
-	ptr = (char **)ft_memalloc(sizeof(char *) * (get_nbwords(s, c) + 1));
-	while (get_nbwords(s, c) - i)
+	j = 0;
+	if (s == 0 || c == 0)
+		return (NULL);
+	if (!(ret = (char **)malloc(sizeof(char *) * (nstrings(s, c) + 1))))
+		return (NULL);
+	while (s[i])
 	{
-		while (s && *(s + start) && *(s + start) == c)
-			++start;
-		while (s && *(s + start + end) && *(s + start + end) != c)
-			++end;
-		ptr[i] = ft_strsub(s, start, end);
-		start += end;
-		end = 0;
-		i++;
+		if (s[i] == c)
+			i++;
+		else
+		{
+			start = i;
+			while (s[i] && s[i] != c)
+				i++;
+			ret[j++] = ft_strsub(s, start, (i - start));
+		}
 	}
-	ptr[i] = NULL;
-	return (ptr);
+	ret[j] = 0;
+	return (ret);
 }

@@ -3,38 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chadams <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: egiyani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/04 17:18:11 by chadams           #+#    #+#             */
-/*   Updated: 2018/06/04 17:29:58 by chadams          ###   ########.fr       */
+/*   Created: 2018/06/01 17:27:41 by egiyani           #+#    #+#             */
+/*   Updated: 2018/06/01 17:34:59 by egiyani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+static size_t	ft_flen(int n)
+{
+	size_t		i;
+
+	i = 1;
+	while (n /= 10)
+		i++;
+	return (i);
+}
+
+char			*ft_itoa(int n)
 {
 	char			*str;
-	unsigned int	num;
-	int				len_num;
 	size_t			len;
+	unsigned int	tmp;
 
-	len_num = n;
-	len = 1;
-	while (len_num /= 10)
-		len++;
-	num = n;
+	len = ft_flen(n);
+	tmp = n;
 	if (n < 0)
 	{
-		num = -n;
+		tmp = -n;
 		len++;
 	}
 	if (!(str = ft_strnew(len)))
 		return (NULL);
-	str[--len] = num % 10 + '0';
-	while (num /= 10)
-		str[--len] = num % 10 + '0';
+	str[--len] = tmp % 10 + '0';
+	while (tmp /= 10)
+		str[--len] = tmp % 10 + '0';
 	if (n < 0)
-		*(str + 0) = '-';
+		str[0] = '-';
 	return (str);
 }

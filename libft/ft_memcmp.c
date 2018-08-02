@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chadams <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: egiyani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/26 14:10:44 by chadams           #+#    #+#             */
-/*   Updated: 2018/06/04 18:14:00 by chadams          ###   ########.fr       */
+/*   Created: 2018/05/23 08:44:22 by egiyani           #+#    #+#             */
+/*   Updated: 2018/05/23 09:13:33 by egiyani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int		ft_memcmp(const void *str1, const void *str2, size_t n)
 {
-	unsigned char	*tmp_s1;
-	unsigned char	*tmp_s2;
-	size_t			count;
-	int				ret;
+	const unsigned char		*s1;
+	const unsigned char		*s2;
 
-	if (!s1 || !s2)
+	s1 = (const unsigned char *)str1;
+	s2 = (const unsigned char *)str2;
+	if (str1 == str2 || n == 0)
 		return (0);
-	tmp_s1 = (unsigned char *)s1;
-	tmp_s2 = (unsigned char *)s2;
-	count = 0;
-	while ((*tmp_s1 == *tmp_s2) && (count < (n - 1)))
+	while (n--)
 	{
-		++tmp_s1;
-		++tmp_s2;
-		++count;
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		if (n != '\0')
+		{
+			s1++;
+			s2++;
+		}
 	}
-	ret = *tmp_s1 - *tmp_s2;
-	return (ret);
+	return (0);
 }

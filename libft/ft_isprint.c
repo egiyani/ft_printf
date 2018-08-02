@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chadams <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: egiyani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/21 10:04:47 by chadams           #+#    #+#             */
-/*   Updated: 2018/05/21 13:59:29 by chadams          ###   ########.fr       */
+/*   Created: 2018/05/25 12:07:55 by egiyani           #+#    #+#             */
+/*   Updated: 2018/05/25 12:14:09 by egiyani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+int		ft_isprint(int c)
 {
-	if (c >= ' ' && c <= '~')
-	{
-		return (1);
-	}
-	return (0);
+	return (c >= 32 && c <= 126);
 }
